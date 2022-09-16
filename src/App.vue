@@ -6,47 +6,74 @@ import victor from "./assets/victor.jpg";
 <template>
   <section class="section">
     <div class="hero-body">
-      <h1 class="title">Victor Bäck</h1>
-      <p class="subtitle">{{ age }} years old</p>
     </div>
     <div class="container is-flex is-justify-content-space-between">
-      <div class="card m-3 is-flex-grow-1">
+      <div
+        class="card m-3 is-flex-grow-1 is-flex-shrink-0 is-flex-basis-0"
+        :style="{
+          height: 'fit-content',
+        }"
+      >
         <div class="card-image">
-          <figure class="image is-4by3">
+          <figure class="image is-1by1">
             <img :src="victor" alt="Photo of Victor Bäck" />
           </figure>
         </div>
       </div>
-      <div class="card m-3 p-3 is-flex-grow-2">
-        <RouterView />
-        <div class="tabs is-toggle is-toggle-rounded">
+      <div
+        class="card m-3 p-0 is-flex-grow-3 is-flex-shrink-0 is-flex-basis-0 is-flex is-flex-direction-column"
+      >
+        <div class="p-3 is-flex-grow-1"><RouterView /></div>
 
+        <div class="tabs is-toggle is-fullwidth">
+          <ul>
+            <RouterLink
+              to="/"
+              custom
+              v-slot="{ href, navigate, isExactActive }"
+            >
+              <li :class="isExactActive ? 'is-active' : ''">
+                <a :href="href" @click="navigate"> <span> About me </span> </a>
+              </li>
+            </RouterLink>
+            <RouterLink
+              to="/experience"
+              custom
+              v-slot="{ href, navigate, isExactActive }"
+            >
+              <li :class="isExactActive ? 'is-active' : ''">
+                <a :href="href" @click="navigate">
+                  <span> Experience </span>
+                </a>
+              </li>
+            </RouterLink>
+            <RouterLink
+              to="/education"
+              custom
+              v-slot="{ href, navigate, isExactActive }"
+            >
+              <li :class="isExactActive ? 'is-active' : ''">
+                <a :href="href" @click="navigate"> <span> Education </span> </a>
+              </li>
+            </RouterLink>
+            <RouterLink
+              to="/projects"
+              custom
+              v-slot="{ href, navigate, isExactActive }"
+            >
+              <li :class="isExactActive ? 'is-active' : ''">
+                <a :href="href" @click="navigate"> <span> Projects </span> </a>
+              </li>
+            </RouterLink>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      born: 1036494000000, //5th November 2002
-    };
-  },
-  computed: {
-    age() {
-      var today = new Date();
-      var birthDate = new Date(this.born);
-      var age = today.getFullYear() - birthDate.getFullYear();
-      var m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-      return age;
-    },
-  },
-};
-</script>
-
-<style scoped></style>
+<style scoped>
+.is-flex-basis-0 {
+  flex-basis: 0;
+}
+</style>
